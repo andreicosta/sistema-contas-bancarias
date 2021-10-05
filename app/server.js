@@ -1,6 +1,7 @@
 const express = require('express');
 const cors = require('cors');
 const AccountController = require('./account/AccountController');
+const OperationController = require('./operation/OperationController');
 const TransactionController = require('./transaction/TransactionController');
 
 const path = __dirname + '/../dist/';
@@ -21,6 +22,10 @@ app.get('/account', function (req, res) {
 
 app.get('/transactions', function (req, res) {
   return (new TransactionController()).list(req, res);
+});
+
+app.post('/operation', function (req, res) {
+  return (new OperationController()).create(req, res);
 });
 
 const PORT = process.env.PORT || 3000;
