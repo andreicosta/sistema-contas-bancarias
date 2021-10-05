@@ -2,7 +2,9 @@
   <div>
     <div v-if="success">
       Depósito realizado com sucesso!<br>
-      <router-link to="/">Clique aqui</router-link> para voltar.
+      <router-link to="/">
+        Clique aqui
+      </router-link> para voltar.
     </div>
     <div v-else>
       <h1>Faça um depósito</h1>

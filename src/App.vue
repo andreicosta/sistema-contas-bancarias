@@ -1,11 +1,26 @@
 <template>
   <div id="app">
-    <div id="nav" />
+    <nav v-show="hasNavBar" class="navbar navbar-expand-lg navbar-light bg-light">
+      <div class="container-fluid">
+        <router-link to="/">Voltar</router-link>
+      </div>
+    </nav>
     <div class="container">
       <router-view />
     </div>
   </div>
 </template>
+
+<script>
+export default {
+  name: 'App',
+  computed: {
+    hasNavBar() {
+      return !!this.$route.meta.hasNavBar;
+    },
+  },
+};
+</script>
 
 <style>
 #app {
@@ -14,18 +29,5 @@
   -moz-osx-font-smoothing: grayscale;
   text-align: center;
   color: #2c3e50;
-}
-
-#nav {
-  padding: 30px;
-}
-
-#nav a {
-  font-weight: bold;
-  color: #2c3e50;
-}
-
-#nav a.router-link-exact-active {
-  color: #42b983;
 }
 </style>
