@@ -1,16 +1,21 @@
-const express = require("express");
+const express = require('express');
+const cors = require('cors');
+const AccountController = require('./account/AccountController');
 
 const path = __dirname + '/../dist/';
 const app = express();
 
 app.use(express.static(path));
 
-app.get('/', function (req,res) {
+app.get('/', function (req, res) {
   return res.redirect('/index.html');
 });
 
-app.get('/teste', function (req,res) {
-  res.json({ status: 'OK' });
+app.use(cors());
+app.use(express.json());
+
+app.get('/account', function (req, res) {
+  return (new AccountController()).get(req, res);
 });
 
 const PORT = process.env.PORT || 3000;
