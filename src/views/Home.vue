@@ -2,7 +2,19 @@
   <div class="row">
     <div class="col-8">
       <h2>Olá!</h2>
-      <h4>Escolha umas das possíveis ações abaixo:</h4>
+
+      <router-link to="/details">
+        Ver extrato
+      </router-link><br>
+      <router-link to="/deposit">
+        Depositar
+      </router-link><br>
+      <router-link to="/redeem">
+        Resgatar
+      </router-link><br>
+      <router-link to="/payment">
+        Pagar
+      </router-link>
     </div>
     <MyAccount class="col-4" />
   </div>

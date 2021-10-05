@@ -1,10 +1,6 @@
 <template>
   <div id="app">
-    <div id="nav">
-      <router-link to="/">
-        Conta
-      </router-link>
-    </div>
+    <div id="nav" />
     <div class="container">
       <router-view />
     </div>
