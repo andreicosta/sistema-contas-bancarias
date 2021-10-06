@@ -1,5 +1,8 @@
 <template>
-  <div id="app">
+  <div v-if="isLoading">
+    carregando
+  </div>
+  <div v-else id="app">
     <nav
       v-show="hasNavBar"
       class="navbar navbar-expand-lg navbar-light bg-light"
@@ -17,12 +20,22 @@
 </template>
 
 <script>
+import { createNamespacedHelpers } from 'vuex';
+
+const { mapState } = createNamespacedHelpers('account');
+
 export default {
   name: 'App',
   computed: {
+    ...mapState({
+      isLoading: (state) => !!state.loading,
+    }),
     hasNavBar() {
       return !!this.$route.meta.hasNavBar;
     },
+  },
+  created() {
+    this.$store.dispatch('account/load');
   },
 };
 </script>
