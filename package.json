@@ -15,6 +15,10 @@
     "cors": "^2.8.5",
     "express": "^4.17.1",
     "express-validator": "^6.12.2",
+    "fs": "0.0.1-security",
+    "path": "^0.12.7",
+    "sequelize": "^6.6.5",
+    "sqlite3": "^5.0.2",
     "vue": "^2.6.11",
     "vue-router": "^3.5.2",
     "vuex": "^3.0.1"
@@ -30,6 +34,7 @@
     "eslint-import-resolver-webpack": "^0.13.1",
     "eslint-plugin-import": "^2.24.2",
     "eslint-plugin-vue": "^6.2.2",
+    "sequelize-cli": "^6.2.0",
     "vue-cli-plugin-store": "0.0.7",
     "vue-template-compiler": "^2.6.11"
   },

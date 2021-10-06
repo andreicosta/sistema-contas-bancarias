@@ -30,8 +30,7 @@ module.exports = class TransactionDTO {
       return false;
     }
 
-    const repo = TransactionRepository.getInstance();
-    await repo.create({
+    await TransactionRepository.create({
       type: this.type,
       value: this.value,
     });

@@ -3,7 +3,7 @@ const TransactionRepository = require('./TransactionRepository');
 
 module.exports = class TransactionController {
   async list(req, res) {
-    return res.json(TransactionRepository.getInstance().findAll());
+    return res.json(await TransactionRepository.findAll());
   }
 
   async create(req, res) {
