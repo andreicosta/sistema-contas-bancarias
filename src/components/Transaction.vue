@@ -1,9 +1,8 @@
 <template>
   <div>
-    {{ data }}
+    {{ date }}
     {{ type }}
     {{ value }}
-    {{ operation.type }}
   </div>
 </template>
 
@@ -15,16 +14,12 @@ export default {
       type: String,
       required: true,
     },
-    data: {
+    date: {
       type: String,
       required: true,
     },
     value: {
       type: Number,
-      required: true,
-    },
-    operation: {
-      type: Object,
       required: true,
     },
   },

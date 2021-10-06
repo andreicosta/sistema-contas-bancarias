@@ -1,8 +1,7 @@
 const express = require('express');
 const cors = require('cors');
 const AccountController = require('./account/AccountController');
-const OperationController = require('./operation/OperationController');
-const TransactionController = require('./transaction/TransactionController');
+const TransactionRouter = require('./transaction/TransactionRouter');
 
 const path = __dirname + '/../dist/';
 const app = express();
@@ -20,13 +19,7 @@ app.get('/account', function (req, res) {
   return (new AccountController()).get(req, res);
 });
 
-app.get('/transactions', function (req, res) {
-  return (new TransactionController()).list(req, res);
-});
-
-app.post('/operation', function (req, res) {
-  return (new OperationController()).create(req, res);
-});
+app.use('/transaction', TransactionRouter);
 
 const PORT = process.env.PORT || 3000;
 app.listen(PORT, () => {

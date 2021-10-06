@@ -70,14 +70,14 @@ export default {
       this.loading = true;
       this.error = null;
 
-      return post('operation', {
+      return post('transaction', {
         type: 'deposit',
         value: this.value,
       })
         .then((result) => {
           this.success = !!result.success;
           if (!this.success) {
-            this.error = result.message || DEFAULT_ERROR_MSG;
+            this.error = result.error || DEFAULT_ERROR_MSG;
           }
         })
         .catch(() => {

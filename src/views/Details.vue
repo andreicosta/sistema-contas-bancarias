@@ -13,9 +13,8 @@
         v-for="transaction in transactions"
         :key="transaction.id"
         :type="transaction.type"
-        :data="transaction.data"
+        :date="transaction.date"
         :value="transaction.value"
-        :operation="transaction.operation"
       />
     </div>
   </div>
@@ -37,7 +36,7 @@ export default {
     };
   },
   mounted() {
-    get('transactions').then((resp) => {
+    get('transaction').then((resp) => {
       this.isLoading = false;
       this.transactions = resp;
     });
