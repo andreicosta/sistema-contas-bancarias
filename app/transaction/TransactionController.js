@@ -12,7 +12,6 @@ module.exports = class TransactionController {
     return res.json({
       success: await dto.save(),
       error: dto.getError(),
-      body: req.body,
     });
   }
 }

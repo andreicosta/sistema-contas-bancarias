@@ -18,8 +18,6 @@ module.exports = class AccountRepository {
   }
 
   async update(args) {
-    console.log('update', args);
-
     this.balance = args.balance;
   }
 

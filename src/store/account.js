@@ -28,6 +28,9 @@ export default {
       state.type = type;
       state.balance = balance;
     },
+    updateBalance(state, balance) {
+      state.balance = balance;
+    },
   },
   actions: {
     load({ state, commit }) {
@@ -37,6 +40,11 @@ export default {
 
       get('account').then((resp) => {
         commit('loaded', resp);
+      });
+    },
+    updateBalance({ commit }) {
+      get('account').then((resp) => {
+        commit('updateBalance', resp.balance);
       });
     },
   },

@@ -76,7 +76,9 @@ export default {
       })
         .then((result) => {
           this.success = !!result.success;
-          if (!this.success) {
+          if (this.success) {
+            this.$store.dispatch('account/updateBalance');
+          } else {
             this.error = result.error || DEFAULT_ERROR_MSG;
           }
         })
