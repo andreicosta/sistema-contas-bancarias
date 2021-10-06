@@ -1,6 +1,10 @@
-const { Account } = require('../../database/models');
+const { Account, AccountTransaction } = require('../../database/models');
 
 module.exports = class AccountRepository {
+  static async first() {
+    return await Account.findOne();
+  }
+
   static async findOne() {
     return await Account.findOne({
       attributes: ['type', 'agency', 'number', 'checkNumber', 'balance'],
@@ -8,10 +12,17 @@ module.exports = class AccountRepository {
     });
   }
 
-  static async updateBalance(newBalance) {
-    return await Account.update(
-      { balance: newBalance },
-      { where: { } }
-    );
+  static async getTransactions() {
+    const account = await Account.findOne();
+
+    return await account.getAccountTransactions({
+      attributes: ['id', 'type', 'value', 'date'],
+      raw: true,
+    });
+  }
+
+  static async updateBalance(account, newBalance) {
+    account.balance = newBalance;
+    return await account.save();
   }
 }

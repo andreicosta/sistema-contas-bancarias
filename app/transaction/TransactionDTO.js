@@ -8,8 +8,7 @@ module.exports = class TransactionDTO {
     this.error = undefined;
   }
 
-  async isValid() {
-    const account = await AccountRepository.findOne();
+  async isValid(account) {
     let accountHasFund = true;
 
     if (['payment', 'redeem'].includes(this.type)) {
@@ -24,17 +23,18 @@ module.exports = class TransactionDTO {
   }
 
   async save() {
-    const isValid = await this.isValid();
+    const account = await AccountRepository.first();
+
+    const isValid = await this.isValid(account);
     if (!isValid) {
       return false;
     }
 
     await TransactionRepository.create({
+      AccountId: account.id,
       type: this.type,
       value: this.value,
     });
-
-    const account = await AccountRepository.findOne();
 
     let newBalance = account.balance;
     if (['payment', 'redeem'].includes(this.type)) {
@@ -43,7 +43,7 @@ module.exports = class TransactionDTO {
       newBalance += this.value;
     }
 
-    await AccountRepository.updateBalance(newBalance);
+    await AccountRepository.updateBalance(account, newBalance);
 
     return true;
   }

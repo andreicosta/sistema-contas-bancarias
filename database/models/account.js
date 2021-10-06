@@ -10,7 +10,7 @@ module.exports = (sequelize, DataTypes) => {
      * The `models/index` file will call this method automatically.
      */
     static associate(models) {
-      // define association here
+      Account.hasMany(models.AccountTransaction);
     }
   };
   Account.init({
@@ -24,15 +24,22 @@ module.exports = (sequelize, DataTypes) => {
       allowNull: false,
       type: DataTypes.STRING
     },
+    agency: {
+      allowNull: false,
+      type: DataTypes.STRING
+    },
+    number: {
+      allowNull: false,
+      type: DataTypes.STRING
+    },
+    checkNumber: {
+      allowNull: false,
+      type: DataTypes.INTEGER
+    },
     balance: {
       allowNull: false,
       type: DataTypes.DECIMAL(10, 2)
     },
-    date: {
-      allowNull: false,
-      type: DataTypes.DATE,
-      defaultValue: DataTypes.NOW
-    }
   }, {
     sequelize,
     modelName: 'Account',
