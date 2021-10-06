@@ -1,7 +1,10 @@
 <template>
   <div>
     <h1>Extrato da conta</h1>
-    <h4>Transações</h4>
+
+    <div>Saldo disponível: {{ accountBalance | money }}</div>
+
+    <h4>Histórico</h4>
     <div v-if="isLoading">
       carregando
     </div>
@@ -21,19 +24,31 @@
 </template>
 
 <script>
+import { createNamespacedHelpers } from 'vuex';
 import { get } from '@/api';
 import Transaction from '@/components/Transaction.vue';
+import Money from '@/mixins/Money';
+
+const { mapState } = createNamespacedHelpers('account');
 
 export default {
   name: 'Details',
   components: {
     Transaction,
   },
+  mixins: [
+    Money,
+  ],
   data() {
     return {
       isLoading: true,
       transactions: null,
     };
+  },
+  computed: {
+    ...mapState({
+      accountBalance: (state) => state.balance,
+    }),
   },
   mounted() {
     get('transaction').then((resp) => {
