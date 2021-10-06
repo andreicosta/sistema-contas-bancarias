@@ -9,8 +9,7 @@ module.exports = class TransactionDTO {
   }
 
   async isValid() {
-    const accountRepo = AccountRepository.getInstance();
-    const account = await accountRepo.findOne();
+    const account = await AccountRepository.findOne();
     let accountHasFund = true;
 
     if (['payment', 'redeem'].includes(this.type)) {
@@ -35,8 +34,7 @@ module.exports = class TransactionDTO {
       value: this.value,
     });
 
-    const accountRepo = AccountRepository.getInstance();
-    const account = await accountRepo.findOne();
+    const account = await AccountRepository.findOne();
 
     let newBalance = account.balance;
     if (['payment', 'redeem'].includes(this.type)) {
@@ -45,9 +43,7 @@ module.exports = class TransactionDTO {
       newBalance += this.value;
     }
 
-    await accountRepo.update({
-      balance: newBalance,
-    });
+    await AccountRepository.updateBalance(newBalance);
 
     return true;
   }

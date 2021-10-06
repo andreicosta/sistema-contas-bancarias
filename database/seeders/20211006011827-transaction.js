@@ -3,7 +3,7 @@
 module.exports = {
   up: async (queryInterface, Sequelize) => {
     await queryInterface.bulkInsert('AccountTransaction', [{
-      type: 'payment',
+      type: 'deposit',
       value: 10,
       date: new Date(),
     }], {});

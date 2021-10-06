@@ -7,7 +7,7 @@ module.exports = class TransactionRepository {
 
   static async findAll() {
     return await AccountTransaction.findAll({
-      attributes: ['id', 'date', 'type', 'value'],
+      attributes: ['date', 'type', 'value'],
       raw: true,
     });
   }
