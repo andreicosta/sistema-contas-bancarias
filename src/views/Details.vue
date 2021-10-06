@@ -1,24 +1,27 @@
 <template>
   <div>
     <h1>Extrato da conta</h1>
-
-    <div>Saldo disponível: {{ accountBalance | money }}</div>
-
-    <h4>Histórico</h4>
+    <div class="mb-2">
+      Saldo disponível: {{ accountBalance | money }}
+    </div>
+    <h3>Histórico</h3>
     <div v-if="isLoading">
       carregando
     </div>
     <div v-else-if="transactions.length === 0">
       Nenhuma transação encontrada
     </div>
-    <div v-else>
-      <Transaction
-        v-for="transaction in transactions"
-        :key="transaction.id"
-        :type="transaction.type"
-        :date="transaction.date"
-        :value="transaction.value"
-      />
+    <div v-else class="row">
+      <ul class="col-sm-12 col-lg-8 offset-lg-2 list-group list-group-flush">
+        <Transaction
+          v-for="transaction in transactions"
+          :key="transaction.id"
+          class="list-group-item"
+          :type="transaction.type"
+          :date="transaction.date"
+          :value="transaction.value"
+        />
+      </ul>
     </div>
   </div>
 </template>

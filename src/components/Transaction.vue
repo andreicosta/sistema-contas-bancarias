@@ -1,14 +1,46 @@
 <template>
-  <div>
-    {{ date }}
-    {{ type }}
-    {{ value }}
-  </div>
+  <li class="d-flex justify-content-between align-items-center">
+    <div class="flex-item-min-width">
+      <img
+        :src="icon"
+        alt="deposito"
+        width="24"
+        height="24"
+      >
+    </div>
+    <div class="d-flex flex-column">
+      <span class="fw-bold">{{ type | description }}</span>
+      <span>{{ value | money }}</span>
+    </div>
+    <span class="text-secondary flex-item-min-width">{{ date | dateFormat }}</span>
+  </li>
 </template>
 
 <script>
+import moment from 'moment';
+import Money from '@/mixins/Money';
+
 export default {
   name: 'Transaction',
+  filters: {
+    description(content) {
+      if (content === 'deposit') {
+        return 'Depósito recebido';
+      } if (content === 'redeem') {
+        return 'Resgate efetuado';
+      } if (content === 'payment') {
+        return 'Pagamento efetuado';
+      }
+
+      return '';
+    },
+    dateFormat(content) {
+      return moment(content, 'YYYY-MM-DD').format('DD/MM/YYYY');
+    },
+  },
+  mixins: [
+    Money,
+  ],
   props: {
     type: {
       type: String,
@@ -23,5 +55,25 @@ export default {
       required: true,
     },
   },
+  computed: {
+    icon() {
+      let icon = '';
+      if (this.type === 'deposit') {
+        icon = 'cash-coin';
+      } else if (this.type === 'redeem') {
+        icon = 'wallet2';
+      } else if (this.type === 'payment') {
+        icon = 'box-arrow-left';
+      }
+
+      return `/assets/icons/${icon}.svg`;
+    },
+  },
 };
 </script>
+
+<style scoped>
+  .flex-item-min-width {
+    min-width: 100px;
+  }
+</style>

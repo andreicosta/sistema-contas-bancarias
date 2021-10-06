@@ -17,6 +17,9 @@ module.exports = class AccountRepository {
 
     return await account.getAccountTransactions({
       attributes: ['id', 'type', 'value', 'date'],
+      order: [
+        ['date', 'DESC'],
+      ],
       raw: true,
     });
   }

@@ -2,7 +2,10 @@
   <div v-if="isLoading">
     carregando
   </div>
-  <div v-else id="app">
+  <div
+    v-else
+    id="app"
+  >
     <nav
       v-show="hasNavBar"
       class="navbar navbar-expand-lg navbar-light bg-light"
