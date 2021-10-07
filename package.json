@@ -7,7 +7,7 @@
     "build": "vue-cli-service build",
     "lint": "vue-cli-service lint",
     "dev": "start npm run start && start npm run serve",
-    "start": "node app/server.js"
+    "start": "node app/swagger.js"
   },
   "dependencies": {
     "bootstrap": "^5.1.1",
@@ -20,6 +20,8 @@
     "path": "^0.12.7",
     "sequelize": "^6.6.5",
     "sqlite3": "^5.0.2",
+    "swagger-autogen": "^2.11.2",
+    "swagger-ui-express": "^4.1.6",
     "vue": "^2.6.11",
     "vue-router": "^3.5.2",
     "vuex": "^3.0.1"

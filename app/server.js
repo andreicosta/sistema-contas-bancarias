@@ -1,7 +1,8 @@
 const express = require('express');
 const cors = require('cors');
-const AccountController = require('./account/AccountController');
-const TransactionRouter = require('./transaction/TransactionRouter');
+const routes = require('./routes');
+const swaggerUi = require('swagger-ui-express');
+const swaggerFile = require('./swagger_output.json');
 
 const path = __dirname + '/../dist/';
 const app = express();
@@ -14,12 +15,9 @@ app.get('/', function (req, res) {
 
 app.use(cors());
 app.use(express.json());
+app.use(routes);
 
-app.get('/account', function (req, res) {
-  return (new AccountController()).get(req, res);
-});
-
-app.use('/transaction', TransactionRouter);
+app.use('/docs', swaggerUi.serve, swaggerUi.setup(swaggerFile));
 
 const PORT = process.env.PORT || 3000;
 app.listen(PORT, () => {

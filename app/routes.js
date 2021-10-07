@@ -1,14 +1,23 @@
 const express = require('express');
 const { body, validationResult } = require('express-validator');
-const TransactionController = require('./TransactionController');
+const AccountController = require('./account/AccountController');
+const TransactionController = require('./transaction/TransactionController');
 
 const router = express.Router();
 
-router.get('/', function (req, res) {
+router.get('/account', function (req, res) {
+  // #swagger.description = 'Rota para obter a conta do usuário.'
+
+  return (new AccountController()).get(req, res);
+});
+
+router.get('/transaction', function (req, res) {
+  // #swagger.description = 'Rota para obter as transações da conta do usuário.'
+
   return (new TransactionController()).list(req, res);
 });
 
-router.post('/',
+router.post('/transaction',
   body('value').isDecimal({ decimal_digits: '0,2', locale: 'en-US' }).isFloat({ min: 0 }).toFloat(),
   body('type').isIn([ 'deposit', 'redeem', 'payment' ]),
 
@@ -23,6 +32,8 @@ router.post('/',
   },
 
   (req, res) => {
+    // #swagger.description = 'Rota criar uma nova transação para a conta do usuário.'
+
     return (new TransactionController()).create(req, res);
   }
 );
