@@ -3,13 +3,13 @@
     <div class="flex-item-min-width">
       <img
         :src="icon"
-        alt="deposito"
+        :alt="description"
         width="24"
         height="24"
       >
     </div>
     <div class="d-flex flex-column">
-      <span class="fw-bold">{{ type | description }}</span>
+      <span class="fw-bold">{{ description }}</span>
       <span>{{ value | money }}</span>
     </div>
     <span class="text-secondary flex-item-min-width">{{ date | dateFormat }}</span>
@@ -23,17 +23,6 @@ import Money from '@/mixins/Money';
 export default {
   name: 'Transaction',
   filters: {
-    description(content) {
-      if (content === 'deposit') {
-        return 'Depósito recebido';
-      } if (content === 'redeem') {
-        return 'Resgate efetuado';
-      } if (content === 'payment') {
-        return 'Pagamento efetuado';
-      }
-
-      return '';
-    },
     dateFormat(content) {
       return moment(content, 'YYYY-MM-DD').format('DD/MM/YYYY');
     },
@@ -56,6 +45,17 @@ export default {
     },
   },
   computed: {
+    description() {
+      if (this.type === 'deposit') {
+        return 'Depósito recebido';
+      } if (this.type === 'redeem') {
+        return 'Resgate efetuado';
+      } if (this.type === 'payment') {
+        return 'Pagamento efetuado';
+      }
+
+      return '';
+    },
     icon() {
       let icon = '';
       if (this.type === 'deposit') {
