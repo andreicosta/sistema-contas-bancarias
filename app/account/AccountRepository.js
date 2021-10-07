@@ -16,7 +16,7 @@ module.exports = class AccountRepository {
     const account = await Account.findOne();
 
     return await account.getAccountTransactions({
-      attributes: ['id', 'type', 'value', 'date'],
+      attributes: ['type', 'value', 'date'],
       order: [
         ['date', 'DESC'],
       ],

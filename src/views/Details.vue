@@ -11,7 +11,10 @@
     <div v-else-if="transactions.length === 0">
       Nenhuma transação encontrada
     </div>
-    <div v-else class="row">
+    <div
+      v-else
+      class="row"
+    >
       <ul class="col-sm-12 col-lg-8 offset-lg-2 list-group list-group-flush">
         <Transaction
           v-for="transaction in transactions"

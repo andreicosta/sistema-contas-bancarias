@@ -3,6 +3,7 @@ node_modules
 /dist
 
 database.sqlite
+database-test.sqlite
 app/swagger_output.json
 
 # local env files

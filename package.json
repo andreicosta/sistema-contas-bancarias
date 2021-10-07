@@ -7,12 +7,16 @@
     "build": "vue-cli-service build",
     "lint": "vue-cli-service lint",
     "dev": "start npm run start && start npm run serve",
-    "start": "node app/swagger.js"
+    "start": "node app/swagger.js",
+    "test": "npm run db:reset:test && cross-env NODE_ENV=test mocha app/tests/*",
+    "db:reset:test": "cross-env NODE_ENV=test npx sequelize-cli db:migrate:undo:all && cross-env NODE_ENV=test npx sequelize-cli db:migrate && cross-env NODE_ENV=test npx sequelize-cli db:seed:all --seeders-path ./database/seeders/tests"
   },
   "dependencies": {
+    "body-parser": "^1.19.0",
     "bootstrap": "^5.1.1",
     "core-js": "^3.6.5",
     "cors": "^2.8.5",
+    "cross-env": "^7.0.3",
     "express": "^4.17.1",
     "express-validator": "^6.12.2",
     "fs": "0.0.1-security",
@@ -32,11 +36,15 @@
     "@vue/cli-plugin-router": "^4.5.13",
     "@vue/cli-service": "~4.5.0",
     "babel-eslint": "^10.1.0",
+    "chai": "^4.3.4",
+    "chai-http": "^4.3.0",
+    "chai-subset": "^1.6.0",
     "eslint": "^6.7.2",
     "eslint-config-airbnb-base": "^14.2.1",
     "eslint-import-resolver-webpack": "^0.13.1",
     "eslint-plugin-import": "^2.24.2",
     "eslint-plugin-vue": "^6.2.2",
+    "mocha": "^9.1.2",
     "sequelize-cli": "^6.2.0",
     "vue-cli-plugin-store": "0.0.7",
     "vue-template-compiler": "^2.6.11"
