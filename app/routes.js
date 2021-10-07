@@ -7,12 +7,18 @@ const router = express.Router();
 
 router.get('/account', function (req, res) {
   // #swagger.description = 'Rota para obter a conta do usuário.'
+  /* #swagger.responses[200] = {
+    description: 'Detalhes da conta do usuário.'
+  } */
 
   return (new AccountController()).get(req, res);
 });
 
 router.get('/transaction', function (req, res) {
   // #swagger.description = 'Rota para obter as transações da conta do usuário.'
+  /* #swagger.responses[200] = {
+    description: 'Lista de transações da conta do usuário.'
+  } */
 
   return (new TransactionController()).list(req, res);
 });
@@ -33,6 +39,9 @@ router.post('/transaction',
 
   (req, res) => {
     // #swagger.description = 'Rota criar uma nova transação para a conta do usuário.'
+    /* #swagger.responses[200] = {
+      description: 'Sucesso na criação da transação.'
+    } */
 
     return (new TransactionController()).create(req, res);
   }
