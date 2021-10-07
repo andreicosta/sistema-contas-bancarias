@@ -4,6 +4,7 @@ node_modules
 
 database.sqlite
 database-test.sqlite
+database/sequelize-data*
 app/swagger_output.json
 
 # local env files

@@ -7,7 +7,7 @@
     "build": "vue-cli-service build",
     "lint": "vue-cli-service lint",
     "dev": "start npm run start && start npm run serve",
-    "start": "node app/swagger.js",
+    "start": "npx sequelize-cli db:migrate && npx sequelize-cli db:seed:all && cross-env NODE_ENV=development node app/swagger.js",
     "test": "npm run db:reset:test && cross-env NODE_ENV=test mocha app/tests/*",
     "db:reset:test": "cross-env NODE_ENV=test npx sequelize-cli db:migrate:undo:all && cross-env NODE_ENV=test npx sequelize-cli db:migrate && cross-env NODE_ENV=test npx sequelize-cli db:seed:all --seeders-path ./database/seeders/tests"
   },

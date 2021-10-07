@@ -3,11 +3,12 @@
 module.exports = {
   up: async (queryInterface, Sequelize) => {
     await queryInterface.bulkInsert('Account', [{
+      id: 1,
       type: 'Conta Corrente',
       agency: '0001',
       number: '1234',
       checkNumber: 0,
-      balance: 10,
+      balance: 6,
     }], {});
   },
 

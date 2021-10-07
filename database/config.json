@@ -2,16 +2,22 @@
   "test": {
     "storage": "./database-test.sqlite",
     "dialect": "sqlite",
+    "seederStorage": "json",
+    "seederStoragePath": "database/sequelize-data-test.json",
     "logging": false
   },
   "development": {
     "storage": "./database.sqlite",
     "dialect": "sqlite",
+    "seederStorage": "json",
+    "seederStoragePath": "database/sequelize-data-dev.json",
     "logging": false
   },
   "production": {
     "storage": "./database.sqlite",
     "dialect": "sqlite",
+    "seederStorage": "json",
+    "seederStoragePath": "database/sequelize-data-prod.json",
     "logging": false
   }
 }
