@@ -1,6 +1,6 @@
 <template>
-  <li class="d-flex justify-content-between align-items-center">
-    <div class="flex-item-min-width">
+  <li class="d-flex align-items-center">
+    <div class="ms-2 me-5">
       <img
         :src="icon"
         :alt="description"
@@ -12,7 +12,7 @@
       <span class="fw-bold">{{ description }}</span>
       <span>{{ value | money }}</span>
     </div>
-    <span class="text-secondary flex-item-min-width">{{ date | dateFormat }}</span>
+    <span class="text-secondary ms-auto">{{ date | dateFormat }}</span>
   </li>
 </template>
 
@@ -71,9 +71,3 @@ export default {
   },
 };
 </script>
-
-<style scoped>
-  .flex-item-min-width {
-    min-width: 100px;
-  }
-</style>

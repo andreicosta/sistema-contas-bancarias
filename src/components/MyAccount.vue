@@ -1,5 +1,5 @@
 <template>
-  <div class="border-start">
+  <div class="border-start text-center">
     <h4>Minha conta</h4>
     <ul>
       <li>Agência: {{ accountAgency }}</li>

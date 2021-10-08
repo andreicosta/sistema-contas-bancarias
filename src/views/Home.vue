@@ -1,6 +1,6 @@
 <template>
   <div class="row pt-5">
-    <div class="col-8">
+    <div class="col-8 text-center">
       <h2>Olá!</h2>
 
       <router-link to="/details">

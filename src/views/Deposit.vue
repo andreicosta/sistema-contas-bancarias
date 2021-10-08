@@ -1,6 +1,6 @@
 <template>
   <div>
-    <div v-if="success">
+    <div v-if="insertTransactionSuccess">
       Depósito realizado com sucesso!<br>
       <router-link to="/">
         Clique aqui
@@ -8,36 +8,18 @@
     </div>
     <div v-else>
       <h1>Faça um depósito</h1>
-      <form @submit.prevent="submit">
-        <div class="mb-3">
-          <label
-            for="InputDeposit"
-            class="form-label"
-          >Valor:</label>
-          <div class="input-group">
-            <div class="input-group-text">
-              R$
-            </div>
-            <input
-              id="InputDeposit"
-              v-model="value"
-              type="number"
-              class="form-control"
-              required
-              step="0.01"
-              min="0"
-            >
-          </div>
-          <div class="form-text">
-            Insira o valor que deseja depositar.
-          </div>
-        </div>
+      <form @submit.prevent="insertTransaction('deposit', value)">
+        <MoneyInput
+          v-model="value"
+          class="mb-3"
+          sub-text="Insira o valor que deseja depositar."
+        />
         <div
-          v-if="error"
+          v-if="insertTransactionError"
           class="alert alert-danger"
           role="alert"
         >
-          {{ error }}
+          {{ insertTransactionError }}
         </div>
         <button
           type="submit"
@@ -51,44 +33,21 @@
 </template>
 
 <script>
-import { post } from '@/api';
-
-const DEFAULT_ERROR_MSG = 'Ocorreu um erro inesperado, tente novamente.';
+import MoneyInput from '@/components/MoneyInput.vue';
+import InsertTransaction from '@/mixins/InsertTransaction';
 
 export default {
   name: 'Deposit',
+  components: {
+    MoneyInput,
+  },
+  mixins: [
+    InsertTransaction,
+  ],
   data() {
     return {
-      loading: false,
-      error: null,
-      success: false,
       value: 0,
     };
-  },
-  methods: {
-    submit() {
-      this.loading = true;
-      this.error = null;
-
-      return post('transaction', {
-        type: 'deposit',
-        value: this.value,
-      })
-        .then((result) => {
-          this.success = !!result.success;
-          if (this.success) {
-            this.$store.dispatch('account/updateBalance');
-          } else {
-            this.error = result.error || DEFAULT_ERROR_MSG;
-          }
-        })
-        .catch(() => {
-          this.error = DEFAULT_ERROR_MSG;
-        })
-        .finally(() => {
-          this.loading = false;
-        });
-    },
   },
 };
 </script>

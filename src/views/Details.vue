@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="col-sm-12 col-lg-8 offset-lg-2">
     <h1>Extrato da conta</h1>
     <div class="mb-2">
       Saldo disponível: {{ accountBalance | money }}
@@ -15,7 +15,7 @@
       v-else
       class="row"
     >
-      <ul class="col-sm-12 col-lg-8 offset-lg-2 list-group list-group-flush">
+      <ul class="list-group list-group-flush">
         <Transaction
           v-for="transaction in transactions"
           :key="transaction.id"
