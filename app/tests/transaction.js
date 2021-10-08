@@ -43,7 +43,7 @@ describe('AccountTransaction', () => {
       });
     });
 
-    it('returns success false when there is not suficient balance to transaction', (done) => {
+    it('returns false when there is not suficient balance to transaction', (done) => {
       chai.request(server.app)
         .post('/transaction')
         .send({
@@ -59,6 +59,19 @@ describe('AccountTransaction', () => {
           done();
         });
       });
+
+    it('returns error when transaction value is zero', (done) => {
+      chai.request(server.app)
+        .post('/transaction')
+        .send({
+          type: 'redeem',
+          value: 0,
+        })
+        .end((err, res) => {
+          res.should.have.status(422);
+          done();
+        });
+      });
     });
 
   describe('test possible transaction', () => {
@@ -71,7 +84,6 @@ describe('AccountTransaction', () => {
         })
         .end((err, res) => {
           res.should.have.status(200);
-          console.log(res.body);
           res.body.should.be.deep.equal({
             success: true,
           });

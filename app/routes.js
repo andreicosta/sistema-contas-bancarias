@@ -24,7 +24,7 @@ router.get('/transaction', function (req, res) {
 });
 
 router.post('/transaction',
-  body('value').isDecimal({ decimal_digits: '0,2', locale: 'en-US' }).isFloat({ min: 0 }).toFloat(),
+  body('value').isDecimal({ decimal_digits: '0,2', locale: 'en-US' }).isFloat({ min: 0.01 }).toFloat(),
   body('type').isIn([ 'deposit', 'redeem', 'payment' ]),
 
   (req, res, next) => {
