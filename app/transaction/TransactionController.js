@@ -1,9 +1,12 @@
 const TransactionDTO = require('./TransactionDTO');
 const AccountRepository = require('../account/AccountRepository');
+const TransactionRepository = require('./TransactionRepository');
 
 module.exports = class TransactionController {
   async list(req, res) {
-    return res.json(await AccountRepository.getTransactions());
+    const account = await AccountRepository.get();
+
+    return res.json(await TransactionRepository.fromAccount(account));
   }
 
   async create(req, res) {

@@ -23,7 +23,7 @@ module.exports = class TransactionDTO {
   }
 
   async save() {
-    const account = await AccountRepository.first();
+    const account = await AccountRepository.get();
 
     const isValid = await this.isValid(account);
     if (!isValid) {
