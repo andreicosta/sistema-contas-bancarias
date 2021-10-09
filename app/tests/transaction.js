@@ -8,10 +8,10 @@ const { should, expect } = chai;
 chai.use(chaiHttp);
 
 describe('AccountTransaction', () => {
-  describe('/GET transaction', () => {
-    it('it should GET user account transactions', (done) => {
+  describe('return transactions', () => {
+    it('returns a list of account transactions', (done) => {
       chai.request(server.app)
-        .get('/transaction')
+        .get('/account/1/transaction')
         .end((err, res) => {
           res.should.have.status(200);
           res.body.should.be.a('array');
@@ -36,7 +36,16 @@ describe('AccountTransaction', () => {
   describe('test impossible transaction', () => {
     it('fails when args are not passed', (done) => {
       chai.request(server.app)
-        .post('/transaction')
+        .post('/account/1/transaction')
+        .end((err, res) => {
+          res.should.have.status(422);
+          done();
+      });
+    });
+
+    it('fails when account does not exist', (done) => {
+      chai.request(server.app)
+        .post('/account/123/transaction')
         .end((err, res) => {
           res.should.have.status(422);
           done();
@@ -45,7 +54,7 @@ describe('AccountTransaction', () => {
 
     it('returns false when there is not suficient balance to transaction', (done) => {
       chai.request(server.app)
-        .post('/transaction')
+        .post('/account/1/transaction')
         .send({
           type: 'payment',
           value: 100000,
@@ -62,7 +71,7 @@ describe('AccountTransaction', () => {
 
     it('returns error when transaction value is zero', (done) => {
       chai.request(server.app)
-        .post('/transaction')
+        .post('/account/2/transaction')
         .send({
           type: 'redeem',
           value: 0,
@@ -77,7 +86,7 @@ describe('AccountTransaction', () => {
   describe('test possible transaction', () => {
     it('payment can be done', (done) => {
       chai.request(server.app)
-        .post('/transaction')
+        .post('/account/1/transaction')
         .send({
           type: 'payment',
           value: 1,
@@ -93,10 +102,11 @@ describe('AccountTransaction', () => {
 
     it('account balance was updated', (done) => {
       chai.request(server.app)
-        .get('/account')
+        .get('/account/1')
         .end((err, res) => {
           res.should.have.status(200);
           res.body.should.be.deep.equal({
+            id: 1,
             type: "Conta Corrente",
             agency: "0001",
             number: "1234",
@@ -109,7 +119,7 @@ describe('AccountTransaction', () => {
 
     it('transaction created is listed', (done) => {
       chai.request(server.app)
-        .get('/transaction')
+        .get('/account/1/transaction')
         .end((err, res) => {
           res.should.have.status(200);
           res.body.should.be.a('array');
@@ -117,6 +127,17 @@ describe('AccountTransaction', () => {
             type: "payment",
             value: 1,
           }]);
+          done();
+        });
+    });
+
+    it('transactions list of another account keeps empty', (done) => {
+      chai.request(server.app)
+        .get('/account/3/transaction')
+        .end((err, res) => {
+          res.should.have.status(200);
+          res.body.should.be.a('array');
+          res.body.should.be.empty;
           done();
         });
     });

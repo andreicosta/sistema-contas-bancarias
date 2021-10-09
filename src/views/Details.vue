@@ -53,11 +53,12 @@ export default {
   },
   computed: {
     ...mapState({
+      accountId: (state) => state.id,
       accountBalance: (state) => state.balance,
     }),
   },
   mounted() {
-    get('transaction').then((resp) => {
+    get(`account/${this.accountId}/transaction`).then((resp) => {
       this.isLoading = false;
       this.transactions = resp;
     });

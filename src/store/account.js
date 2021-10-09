@@ -5,8 +5,7 @@ export default {
   namespaced: true,
   state() {
     return {
-      loaded: false,
-      loading: true,
+      loading: false,
       id: null,
       agency: null,
       number: null,
@@ -19,7 +18,6 @@ export default {
     loaded(state, {
       id, number, type, balance, checkNumber, agency,
     }) {
-      state.loaded = true;
       state.loading = false;
       state.id = id;
       state.agency = agency;
@@ -33,19 +31,22 @@ export default {
     },
   },
   actions: {
-    load({ state, commit }) {
-      if (state.loaded) {
+    load({ getters, commit }, account) {
+      if (getters.loaded) {
         return;
       }
 
-      get('account').then((resp) => {
+      get(`account/${account.id}`).then((resp) => {
         commit('loaded', resp);
       });
     },
-    updateBalance({ commit }) {
-      get('account').then((resp) => {
+    updateBalance({ commit, state }) {
+      get(`account/${state.id}`).then((resp) => {
         commit('updateBalance', resp.balance);
       });
     },
+  },
+  getters: {
+    loaded: (state) => state.id !== null,
   },
 };

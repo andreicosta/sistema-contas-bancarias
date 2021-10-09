@@ -1,6 +1,9 @@
 <template>
-  <div v-if="isLoading">
-    carregando
+  <div v-if="isLoadingAccount">
+    carregando dados da conta
+  </div>
+  <div v-else-if="!loaded">
+    <AccountSelect />
   </div>
   <div
     v-else
@@ -22,21 +25,25 @@
 
 <script>
 import { createNamespacedHelpers } from 'vuex';
+import AccountSelect from '@/components/AccountSelect.vue';
 
-const { mapState } = createNamespacedHelpers('account');
+const { mapGetters, mapState } = createNamespacedHelpers('account');
 
 export default {
   name: 'App',
+  components: {
+    AccountSelect,
+  },
   computed: {
+    ...mapGetters([
+      'loaded',
+    ]),
     ...mapState({
-      isLoading: (state) => !!state.loading,
+      isLoadingAccount: (state) => !!state.loading,
     }),
     hasNavBar() {
       return !!this.$route.meta.hasNavBar;
     },
-  },
-  created() {
-    this.$store.dispatch('account/load');
   },
 };
 </script>

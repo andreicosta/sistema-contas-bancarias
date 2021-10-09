@@ -2,7 +2,8 @@ const AccountRepository = require('../account/AccountRepository');
 const TransactionRepository = require('../transaction/TransactionRepository');
 
 module.exports = class TransactionDTO {
-  constructor(type, value) {
+  constructor(accountId, type, value) {
+    this.accountId = accountId;
     this.type = type;
     this.value = value;
     this.error = undefined;
@@ -23,7 +24,7 @@ module.exports = class TransactionDTO {
   }
 
   async save() {
-    const account = await AccountRepository.get();
+    const account = await AccountRepository.get(this.accountId);
 
     const isValid = await this.isValid(account);
     if (!isValid) {

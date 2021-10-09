@@ -16,6 +16,13 @@ module.exports = {
       number: '3212',
       checkNumber: 1,
       balance: 3,
+    },{
+      id: 3,
+      type: 'Conta Corrente',
+      agency: '0001',
+      number: '3222',
+      checkNumber: 1,
+      balance: 0,
     }], {});
 
     await queryInterface.bulkInsert('AccountTransaction', [{

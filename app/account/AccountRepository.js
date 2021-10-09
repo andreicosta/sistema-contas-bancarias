@@ -1,13 +1,27 @@
 const { Account, AccountTransaction } = require('../../database/models');
 
 module.exports = class AccountRepository {
-  static async get() {
-    return await Account.findOne();
+  static async list(columns) {
+    return await Account.findAll({
+      attributes: columns,
+      raw: true,
+    });
   }
 
-  static async getRaw(columns) {
+  static async get(id) {
+    return await Account.findOne({
+      where: {
+        id,
+      },
+    });
+  }
+
+  static async getRaw(id, columns) {
     return await Account.findOne({
       attributes: columns,
+      where: {
+        id,
+      },
       raw: true,
     });
   }

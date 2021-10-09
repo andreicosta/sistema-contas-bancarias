@@ -1,6 +1,8 @@
+import { createNamespacedHelpers } from 'vuex';
 import { post } from '@/api';
 
 const DEFAULT_ERROR_MSG = 'Ocorreu um erro inesperado, tente novamente.';
+const { mapState } = createNamespacedHelpers('account');
 
 export default {
   data() {
@@ -9,6 +11,11 @@ export default {
       insertTransactionSuccess: false,
       insertTransactionError: null,
     };
+  },
+  computed: {
+    ...mapState({
+      accountId: (state) => state.id,
+    }),
   },
   methods: {
     insertTransaction(type, value) {
@@ -19,7 +26,7 @@ export default {
       this.insertTransactionLoading = true;
       this.insertTransactionError = null;
 
-      post('transaction', {
+      post(`account/${this.accountId}/transaction`, {
         type,
         value,
       })
