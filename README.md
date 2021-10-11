@@ -24,7 +24,12 @@ npm run lint
 npm run test
 ```
 
-### Inicia a aplicação
+### Inicia a aplicação - Linux
 ```
 npm run app
+```
+
+### Inicia a aplicação - Windows
+```
+npm run app-win
 ```
