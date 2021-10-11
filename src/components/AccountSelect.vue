@@ -7,7 +7,7 @@
   </div>
   <div
     v-else
-    class="m-4"
+    class="my-4 p-4 border mx-auto form-container"
   >
     <h4>Escolha uma conta para continuar</h4>
     <form @submit.prevent="selectedAccount">
@@ -75,3 +75,9 @@ export default {
   },
 };
 </script>
+
+<style scoped>
+.form-container {
+  max-width: 500px;
+}
+</style>
