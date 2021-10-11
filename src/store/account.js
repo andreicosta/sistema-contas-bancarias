@@ -29,6 +29,15 @@ export default {
     updateBalance(state, balance) {
       state.balance = balance;
     },
+    free(state) {
+      state.loading = false;
+      state.id = null;
+      state.agency = null;
+      state.number = null;
+      state.checkNumber = null;
+      state.type = null;
+      state.balance = null;
+    },
   },
   actions: {
     load({ getters, commit }, account) {
@@ -44,6 +53,9 @@ export default {
       get(`account/${state.id}`).then((resp) => {
         commit('updateBalance', resp.balance);
       });
+    },
+    free({ commit }) {
+      commit('free');
     },
   },
   getters: {

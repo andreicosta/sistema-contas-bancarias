@@ -9,14 +9,7 @@
     v-else
     id="app"
   >
-    <nav
-      v-show="hasNavBar"
-      class="container-fluid navbar navbar-expand-lg navbar-light bg-light"
-    >
-      <router-link to="/">
-        Voltar
-      </router-link>
-    </nav>
+    <NavBar />
     <div class="container">
       <router-view />
     </div>
@@ -26,6 +19,7 @@
 <script>
 import { createNamespacedHelpers } from 'vuex';
 import AccountSelect from '@/components/AccountSelect.vue';
+import NavBar from '@/components/NavBar.vue';
 
 const { mapGetters, mapState } = createNamespacedHelpers('account');
 
@@ -33,6 +27,7 @@ export default {
   name: 'App',
   components: {
     AccountSelect,
+    NavBar,
   },
   computed: {
     ...mapGetters([
@@ -41,9 +36,6 @@ export default {
     ...mapState({
       isLoadingAccount: (state) => !!state.loading,
     }),
-    hasNavBar() {
-      return !!this.$route.meta.hasNavBar;
-    },
   },
 };
 </script>
